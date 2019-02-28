@@ -630,7 +630,7 @@
                       "type": "string"
                     },
                     "descriptionDetail": {
-                      "example": "Una peticion fue hecha a una URI utilizando un m\ufffdtodo de solicitud no soportado por dicha URI.",
+                      "example": "Una peticion fue hecha a una URI utilizando un MEtodo de solicitud no soportado por dicha URI.",
                       "type": "string"
                     },
                     "responseTimestamp": {
