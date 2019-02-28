@@ -1,0 +1,692 @@
+{
+  "host": "bla.com",
+  "info": {
+    "description": "algo aca",
+    "title": "APIM-businessClaims",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/customer/customerProblem/v1/businessClaims/request": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "default": "ATG",
+            "description": "",
+            "in": "header",
+            "name": "applicationCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "1234",
+            "description": "",
+            "in": "header",
+            "name": "consumerId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "CHL",
+            "description": "",
+            "in": "header",
+            "name": "countryCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "2018-12-12T12:12:12.444-03:00",
+            "description": "",
+            "in": "header",
+            "name": "requestTimestamp",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - Procesamiento concluido exitosamente"
+          },
+          "400": {
+            "description": "Error - Parametros invalidos",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "400",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Solicitud incorrecta",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "La solicitud contiene sintaxis erronea y no deberia repetirse.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Error - Error de autenticacion",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "401",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "No autorizado",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "El token de autorizacicin ingresado es invalido.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Error - Recurso no encontrado.",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "404",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "No encontrado",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "Recurso no encontrado.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Error - Metodo no permitido",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "405",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Metodo no permitido",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "Una peticion fue hecha a una URI utilizando un metodo de solicitud no soportado por dicha URI.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Error - Error inesperado en el servidor",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "500",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Error en el servidor",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "El servidor ha encontrado una error inesperado.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "",
+        "tags": []
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "default": "ATG",
+            "description": "",
+            "in": "header",
+            "name": "applicationCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "1234",
+            "description": "",
+            "in": "header",
+            "name": "consumerId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "CHL",
+            "description": "",
+            "in": "header",
+            "name": "countryCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "2018-12-12T12:12:12.444-03:00",
+            "description": "",
+            "in": "header",
+            "name": "requestTimestamp",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Estructura request a enviar",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "example": {
+                "nose": "yes"
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - Procesamiento concluido exitosamente",
+            "schema": {
+              "example": {
+                "result": {
+                  "code": "200",
+                  "description": "OK",
+                  "descriptionDetail": "Procesamiento concluido exitosamente",
+                  "responseTimestamp": "2018-09-24T12:08:48.518",
+                  "transactionId": "00000165d3b5f67c-122ba"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error - Parametros invalidos",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "400",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Solicitud incorrecta",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Error - Error de autenticacion",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "401",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "No autorizado",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Error - Recurso no encontrado.",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "404",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "No encontrado",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "Recurso no encontrado.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Error - Metodo no permitido",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "405",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Metodo no permitido",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "metodo no soportado",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Error - Error inesperado en el servidor",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "500",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Error en el servidor",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "El servidor ha encontrado una error inesperado.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "",
+        "tags": []
+      }
+    },
+    "/customer/customerProblem/v1/businessClaims/request/cancel": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "default": "ATG",
+            "description": "",
+            "in": "header",
+            "name": "applicationCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "1234",
+            "description": "",
+            "in": "header",
+            "name": "consumerId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "CHL",
+            "description": "",
+            "in": "header",
+            "name": "countryCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "2018-12-12T12:12:12.444-03:00",
+            "description": "",
+            "in": "header",
+            "name": "requestTimestamp",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Estructura request a enviar",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "example": {
+                "nose": "yes"
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "example": {
+                "result": {
+                  "code": "200",
+                  "description": "OK",
+                  "descriptionDetail": "",
+                  "responseTimestamp": "2018-09-24T12:08:48.518",
+                  "transactionId": "00000165d3b5f67c-122ba"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error - Parametros invalidos",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "400",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Solicitud incorrecta",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Error - Error de autenticacion",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "401",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "No autorizado",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "El token de autorizacion ingresado es invalido.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Error - Recurso no encontrado.",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "404",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "No encontrado",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "Recurso no encontrado.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Error - Metodo no permitido",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "405",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Metodo no permitido",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "Una peticion fue hecha a una URI utilizando un m\ufffdtodo de solicitud no soportado por dicha URI.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Error - Error inesperado en el servidor",
+            "schema": {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "code": {
+                      "example": "500",
+                      "type": "string"
+                    },
+                    "description": {
+                      "example": "Error en el servidor",
+                      "type": "string"
+                    },
+                    "descriptionDetail": {
+                      "example": "El servidor ha encontrado una error inesperado.",
+                      "type": "string"
+                    },
+                    "responseTimestamp": {
+                      "example": "2018/05/10T17:49:56.080",
+                      "type": "string"
+                    },
+                    "transactionId": {
+                      "example": "0000016349eeab2d-2c9",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "cancela algo",
+        "tags": []
+      }
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0"
+}
