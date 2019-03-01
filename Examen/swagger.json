@@ -1,0 +1,565 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "APIM-GetDocumentBillDetails",
+    "description": "Esta Validación si existe el documento en BSCS y si existe trae los item del documento tributario.",
+    "version": "1.0.0"
+  },
+  "host": "192.168.51.101:8443",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/EVS/EXM/cto/politica/prueba3": {
+      "get": {
+        "tags": [
+          "GetDocumentBillDetails"
+        ],
+        "summary": "Validación si existe el documento en BSCS y si existe trae los item del documento tributario.",
+        "description": "\n# 1. Modo de Consumo\n\n| Tipo de Interfaz | Protocolo | Operacion | Ambiente | URI Exposicion                                                        |\n| ---------------- | --------- | --------- | -------- |:--------------------------------------------------------------------- |\n| REST/JSON        | HTTPS     | GET       | UAT      |https://apiinternaluat.entel.cl/legacy/customer/customerBill/v1/electronicBilling |\n|                  |           |           | PRD      | https://apiinternal.entel.cl/legacy/customer/customerBill/v1/electronicBilling    |\n\n# 2. Políticas de Acceso\n Esta API se encuentran protegida y utiliza como mecanismo de autenticación 2-legged OAuth 2.0 para todas las operaciones que la componen.\n Los parámetros client_id y client_secret debe ser obtenido a través de API Portal y ser enviado con las siguientes características para obtener el token de acceso.\n\n| Protocolo | Operacion | Ambiente | URI Exposicion                                      |\n| --------- | --------- | -------- |:----------------------------------------------------|\n| HTTPS     | POST      | UAT      | https://apiinternaluat.entel.cl/auth/oauth/v2/token |\n|           |           | PRD      | https://apiinternal.entel.cl/auth/oauth/v2/token    |\n\n*Request Body:\n*Content-Type: application/x-www-form-urlencoded\n\n| Campo               | Valor               | Descripción                              |\n| ------------------- | --------------------|:-----------------------------------------|\n| grant_type          | client_credentials  | Tipo de autenticación                    |\n| client_id           | {API Key}           | API Key de API Portal                    |\n| client_secret       | {Shared Secret}     | Shared secret de API Portal              |\n\n*Response Body:\n\n| Campo               | Valor               | Descripción                              |\n| ------------------- | --------------------|:-----------------------------------------|\n| access_token        | {token acceso}      | Código de token de acceso                |\n| token_type          | Bearer              | Tipo de token                            |\n| expires_in          | {minutos}           | Tiempo de duración del token (en minutos)|\n| scope               | {scope}             | Nivel de autorizacón (por defecto oob)   |\n\n# 3. Estructura de entrada (Request)\n## 3.1. Parametros Header\n\n| Campo            | Tipo              | Obligatorio | Descripcion                                                                                                                                                           | Valores posibles - Formato               | Valor Ejemplo                                      |\n| -----------------| ------------------| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -----------------------------------------|:-------------------------------------------------- |\n| Content-Type     | string            | Si          | Indica el tipo de contenido del cuerpo del mensaje enviado al destinatario| application/json; charset=utf-8| application/json; charset=utf-8|\n| Authorization    | string            | Si          | Token de acceso alfanumerico obtenido de la autenticación OAuth| Bearer xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx  | Bearer dc53b3da-3e3c-4956-8b1c-17d8d78caf65|\n| applicationCode  | string| Si| Código único que representa al sistema consumidor. Es responsabilidad del consumidor enviar este valor| ATG (para ATG), XXX (para XXX)|XXX|\n| countryCode|string|Si|Identifica el país desde donde se origina la petición. Es responsabilidad del consumidor enviar este valor | CHL (Chile), PER (Perú)|CHL|\n| consumerId       | string            | Si          | Código único de identificación de la ejecución, que identifica el evento del consumidor. Es responsabilidad del consumir enviar este valor según las reglas definidas |*|0129OPER_00006201805071140101231000000000000001000 |\n| requestTimestamp | string (Datetime) | Si          | Fecha, hora y timezone en el cual se envía la petición del consumidor.|YYYY-MM-DDThh:mm:ss.sss-Z|2018-12-12T12:12:12.444-03:00|\n\n\n\n  \n# 4. Estructura de salida (Response)\n\n| Campo | Tipo | Descripcion |\n|---------------------------|----------|--------------------------------------------------------------------|\n| result | Object | Objeto con el status   de la llamada  |\n| result.transactionId | String | Id de transacción   generado por el API Management. |\n| result.code | integer | Código interno de   respuesta |\n| result.description | String | Descripción interno   de respuesta |\n| result.descriptionDetail | String | Descripción detallada   o acción a realizar |\n| result.responseTimestamp | dateTime | Fecha y hora de   respuesta del API Management |\n| CustomerBill| Object|  |\n| CustomerBill.itemGloss | String |  |\n| CustomerBill.billNoRef| String |  |\n| CustomerBill.characteristicConcept| String |  |\n| CustomerBill.billDateRef | String |  |\n| CustomerBill.netAmount| String |  |\n| CustomerBill.taxRate| String ||\n| CustomerBill.totalAmount| String ||\n| CustomerBill.spcode| String |  |\n| CustomerBill.npcode| String ||\n| CustomerBill.rpcode| String ||\n# 5.  Códigos de  retorno\n\nA continuacion los posibles codigos retornados para este servicio\n\n| Code Status  HTTP                    | Descripción HTTP                                                                              |\n|--------------------------------------|:----------------------------------------------------------------------------------------------|\n| 200 - OK                             | Respuesta estándar para peticiones correctas.                                                 |\n| 201 - CREADO                         | La petición ha sido completada y ha resultado en la creación de un nuevo recurso.             |\n| 400 - PETICIÓN INCORRECTA            | La solicitud contiene sintaxis errónea y no debería repetirse.                                |\n| 401 - NO AUTORIZADO                  | El token de autorización ingresado es inválido.                                               |\n| 404 - NO ENCONTRADO                  | Recurso no encontrado.                                                                        |\n| 405 - MÉTODO NO PERMITIDO            | Una petición fue hecha a una URI utilizando un método de solicitud no soportado por dicha URI |\n| 422 – ENTIDAD NO PROCESADA           | La solicitud está bien formada pero fue imposible seguirla debido a errores semánticos.       |\n| 429 - LIMITE DE SOLICITUDES EXCEDIDO | Se ha excedido el límite de solicitudes para un período de tiempo determinado .               | \n| 500 - ERROR EN EL SERVIDOR           | El servidor ha encontrado un error inesperado.                                                |\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "applicationCode",
+            "in": "header",
+            "description": "Código único que representa al sistema consumidor.",
+            "required": true,
+            "type": "string",
+            "default": "ATG"
+          },
+          {
+            "name": "consumerId",
+            "in": "header",
+            "description": "Código único de identificación de la ejecución, que identifica el evento del consumidor.",
+            "required": true,
+            "type": "string",
+            "default": "1234"
+          },
+          {
+            "name": "countryCode",
+            "in": "header",
+            "description": "Identifica el país desde donde se origina la petición.",
+            "required": true,
+            "type": "string",
+            "default": "CHL"
+          },
+          {
+            "name": "requestTimestamp",
+            "in": "header",
+            "description": "Fecha, hora y timezone en el cual se envía la petición del consumidor.",
+            "required": true,
+            "type": "string",
+            "default": "2018-12-12T12:12:12.444-03:00"
+          },
+          {
+            "name": "nameSociety",
+            "in": "query",
+            "description": "Sociedad: ENT PCS",
+            "required": true,
+            "type": "string",
+            "default": " ENT PCS"
+          },
+          {
+            "name": "documentType",
+            "in": "query",
+            "description": "Clase documento, Ejemplos: FS Factura de servicio BS Boleta de servicio FV Factura de venta BV Boleta de venta",
+            "required": true,
+            "type": "string",
+            "default": "BS"
+          },
+          {
+            "name": "documentNumber",
+            "in": "query",
+            "description": "Folio de documento",
+            "required": true,
+            "type": "string",
+            "default": "Folio de documento"
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - Operación concluida exitosa",
+            "schema": {
+              "$ref": "#/definitions/ResponseReserve"
+            }
+          },
+          "400": {
+            "description": "Error - Parámetros invalidos",
+            "schema": {
+              "$ref": "#/definitions/ResponseError400"
+            }
+          },
+          "401": {
+            "description": "Error - Error de autenticación",
+            "schema": {
+              "$ref": "#/definitions/ResponseError401"
+            }
+          },
+          "404": {
+            "description": "Error - Recurso no encontrado.",
+            "schema": {
+              "$ref": "#/definitions/ResponseError404"
+            }
+          },
+          "405": {
+            "description": "Error - Método no permitido",
+            "schema": {
+              "$ref": "#/definitions/ResponseError405"
+            }
+          },
+          "422": {
+            "description": "Error - Error de procesamiento de la solicitud",
+            "schema": {
+              "$ref": "#/definitions/ResponseError422"
+            }
+          },
+          "429": {
+            "description": "Error - Demasiadas solicitudes",
+            "schema": {
+              "$ref": "#/definitions/ResponseError429"
+            }
+          },
+          "500": {
+            "description": "Error - Error inesperado en el servidor",
+            "schema": {
+              "$ref": "#/definitions/ResponseError500"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ResponseError400": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "example": "0000016349eeab2d-2c9"
+            },
+            "code": {
+              "type": "string",
+              "example": 400
+            },
+            "description": {
+              "type": "string",
+              "example": "Solicitud incorrecta"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "example": "La solicitud contiene sintaxis errónea y no debería repetirse."
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "example": "2018/05/10T17:49:56.080"
+            }
+          }
+        }
+      }
+    },
+    "ResponseError401": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "example": "0000016349eeab2d-2c9"
+            },
+            "code": {
+              "type": "string",
+              "example": 401
+            },
+            "description": {
+              "type": "string",
+              "example": "No autorizado"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "example": "El token de autorización ingresado es inválido."
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "example": "2018/05/10T17:49:56.080"
+            }
+          }
+        }
+      }
+    },
+    "ResponseError404": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "example": "0000016349eeab2d-2c9"
+            },
+            "code": {
+              "type": "string",
+              "example": 404
+            },
+            "description": {
+              "type": "string",
+              "example": "No encontrado"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "example": "Recurso no encontrado."
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "example": "2018/05/10T17:49:56.080"
+            }
+          }
+        }
+      }
+    },
+    "ResponseError405": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "example": "0000016349eeab2d-2c9"
+            },
+            "code": {
+              "type": "string",
+              "example": 405
+            },
+            "description": {
+              "type": "string",
+              "example": "Metodo no permitido"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "example": "Una petición fue hecha a una URI utilizando un método de solicitud no soportado por dicha URI."
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "example": "2018/05/10T17:49:56.080"
+            }
+          }
+        }
+      }
+    },
+    "ResponseError422": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "example": "0000016349eeab2d-2c9"
+            },
+            "code": {
+              "type": "string",
+              "example": 422
+            },
+            "description": {
+              "type": "string",
+              "example": "Entidad no procesada"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "example": "La solicitud está bien formada pero fue imposible seguirla debido a errores semánticos."
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "example": "2018/05/10T17:49:56.080"
+            }
+          }
+        }
+      }
+    },
+    "ResponseError429": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "example": "0000016349eeab2d-2c9"
+            },
+            "code": {
+              "type": "string",
+              "example": 429
+            },
+            "description": {
+              "type": "string",
+              "example": "Límite de solicitudes excedido"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "example": "Se ha excedido el límite de solicitudes para un período de tiempo determinado."
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "example": "2018/05/10T17:49:56.080"
+            }
+          }
+        }
+      }
+    },
+    "ResponseError500": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "example": "0000016349eeab2d-2c9"
+            },
+            "code": {
+              "type": "string",
+              "example": 500
+            },
+            "description": {
+              "type": "string",
+              "example": "Error en el servidor"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "example": "El servidor ha encontrado una error inesperado."
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "example": "2018/05/10T17:49:56.080"
+            }
+          }
+        }
+      }
+    },
+    "ResponseReserve": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "title": "The Transactionid Schema ",
+              "default": "",
+              "example": "000001635079ff66-f25b"
+            },
+            "code": {
+              "type": "string",
+              "title": "The Code Schema ",
+              "default": "",
+              "example": 200
+            },
+            "description": {
+              "type": "string",
+              "title": "The Description Schema ",
+              "default": "",
+              "example": "OK"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "title": "The Descriptiondetail Schema ",
+              "default": "",
+              "example": "Procesamiento concluído exitosamente"
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "title": "The Responsetimestamp Schema ",
+              "default": "",
+              "example": "2018/05/14T10:16:10.484"
+            }
+          }
+        },
+        "CustomerBill": {
+          "type": "object",
+          "properties": {
+            "itemGloss": {
+              "type": "string"
+            },
+            "billNoRef": {
+              "type": "string"
+            },
+            "characteristicConcept": {
+              "type": "string"
+            },
+            "billDateRef": {
+              "type": "string"
+            },
+            "netAmount": {
+              "type": "string"
+            },
+            "taxRate": {
+              "type": "string"
+            },
+            "spcode": {
+              "type": "string"
+            },
+            "npcode": {
+              "type": "string"
+            },
+            "rpcode": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "RequestReserve": {
+      "type": "object",
+      "properties": {
+        "detalleFacturacionElectronica": {
+          "type": "object",
+          "properties": {
+            "Rut": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "string"
+            },
+            "nroCuenta": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "string"
+            },
+            "codigoGrupoCliente": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "string"
+            },
+            "grupoCliente": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "string"
+            },
+            "correoFactura": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "string"
+            },
+            "parametro6": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "string"
+            },
+            "parametro7": {
+              "type": "string",
+              "title": "Por definir",
+              "default": "",
+              "example": "string"
+            },
+            "estadoFE": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "string"
+            },
+            "parametro9": {
+              "type": "string",
+              "title": "Por definir",
+              "default": "",
+              "example": "string"
+            },
+            "parametro10": {
+              "type": "string",
+              "title": "Por definir",
+              "default": "",
+              "example": "sssss"
+            },
+            "fechaHoraInscripcion": {
+              "type": "string",
+              "title": "Fecha y hora de incripcion",
+              "default": "",
+              "example": "string"
+            },
+            "msisdn": {
+              "type": "string",
+              "title": "Mobile Station Integrated Services Digital Network",
+              "default": "",
+              "example": "string"
+            },
+            "parametro13": {
+              "type": "string",
+              "title": "Por definir",
+              "default": "",
+              "example": "string"
+            }
+          }
+        }
+      }
+    },
+    "RequestReserve2": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "00000168f955ad70-121e17"
+            },
+            "code": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "0000"
+            },
+            "description": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "OK"
+            },
+            "descriptionDetail": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "OK"
+            },
+            "responseTimestamp": {
+              "type": "string",
+              "title": "Rut del cliente",
+              "default": "",
+              "example": "2019-02-27T11:14:02.478"
+            }
+          }
+        }
+      }
+    }
+  }
+}
